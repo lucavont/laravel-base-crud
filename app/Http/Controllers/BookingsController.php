@@ -15,9 +15,15 @@ class BookingsController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        $bookings = Booking::all();
+        $q = $request->q;
+        if ($q) {
+            $bookings = Booking::where('guest_full_name', 'LIKE', "%$q%")->get();
+        } else {
+            $bookings = Booking::all();
+        }
+        
 
         $columns = [
             'id' => '#',
