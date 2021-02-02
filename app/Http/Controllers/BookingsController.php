@@ -9,6 +9,7 @@ use App\Booking;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Validator;
 use App\Http\Requests\BookingsFormRequest;
+use Carbon\Carbon;
 
 class BookingsController extends Controller
 {
@@ -99,6 +100,13 @@ class BookingsController extends Controller
     {
         //
         $booking = Booking::find($id);
+
+        $fromDate = Carbon::createFromFormat('d/m/Y', $booking->from_date)->toDateString();
+        $toDate = Carbon::createFromFormat('d/m/Y', $booking->to_date)->toDateString();
+
+        $booking->from_date = $fromDate;
+        $booking->to_date = $toDate;
+    
 
         return view('bookings.edit', compact('booking'));
     }

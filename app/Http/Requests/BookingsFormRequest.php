@@ -25,8 +25,10 @@ class BookingsFormRequest extends FormRequest
     {
         return [
             'booking_name' => 'required|string|min:3',
-            'booking_credit_card' => 'required|numeric',
-            'booking_room' => 'required|numeric|min:1',
+            'booking_credit_card' => 'required|string|size:16',
+            'booking_room' => 'required|numeric|min:1|max:99',
+            'booking_from' => '',
+            'booking_to' => '',
             'booking_more_details' => 'required|string|min:3'
         ];
     }
