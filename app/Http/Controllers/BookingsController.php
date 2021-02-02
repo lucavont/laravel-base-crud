@@ -7,6 +7,8 @@ use Illuminate\Http\Request;
 use App\Booking;
 
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Validator;
+use App\Http\Requests\BookingsFormRequest;
 
 class BookingsController extends Controller
 {
@@ -54,18 +56,19 @@ class BookingsController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(BookingsFormRequest $request)
     {
         //
+        $validated = $request->validated();        
 
         $newBooking = new Booking();
 
-        $newBooking->guest_full_name = $request->input('booking_name');
-        $newBooking->guest_credit_card = $request->input('booking_credit_card');
-        $newBooking->room = $request->input('booking_room');
-        $newBooking->from_date = $request->input('booking_from');
-        $newBooking->to_date = $request->input('booking_to');
-        $newBooking->more_details = $request->input('booking_more_details');
+        $newBooking->guest_full_name = $validated['booking_name'];
+        $newBooking->guest_credit_card = $validated['booking_credit_card'];
+        $newBooking->room = $validated['booking_room'];
+        $newBooking->from_date = $validated['booking_from'];
+        $newBooking->to_date = $validated['booking_to'];
+        $newBooking->more_details = $validated['booking_more_details'];
 
         $newBooking->save();
 

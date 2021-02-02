@@ -24,7 +24,10 @@ class BookingsFormRequest extends FormRequest
     public function rules()
     {
         return [
-            
+            'booking_name' => 'required|string|min:3',
+            'booking_credit_card' => 'required|numeric|min:3|max:3',
+            'booking_room' => 'required|numeric|min:1|max:2',
+            'booking_more_details' => 'required|string|min:3'
         ];
     }
 }
