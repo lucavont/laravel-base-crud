@@ -98,6 +98,9 @@ class BookingsController extends Controller
     public function edit($id)
     {
         //
+        $booking = Booking::find($id);
+
+        return view('bookings.edit', compact('booking'));
     }
 
     /**
@@ -107,9 +110,24 @@ class BookingsController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(BookingsFormRequest $request, $id)
     {
         //
+        $validated = $request->validated();
+
+        $oldBooking = Booking::find($id);
+
+        $oldBooking->guest_full_name = $validated['booking_name'];
+        $oldBooking->guest_credit_card = $validated['booking_credit_card'];
+        $oldBooking->room = $validated['booking_room'];
+        $oldBooking->from_date = $validated['booking_from'];
+        $oldBooking->to_date = $validated['booking_to'];
+        $oldBooking->more_details = $validated['booking_more_details'];
+
+        $oldBooking->save();
+
+        return redirect()->route('bookings.index');
+
     }
 
     /**

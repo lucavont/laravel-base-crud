@@ -20,6 +20,7 @@
           <td>{{$booking->from_date}}</td>
           <td>{{$booking->to_date}}</td>
           <td><a href="{{route('bookings.show', $booking->id)}}">Vedi</a></td>
+          <td><a href="{{route('bookings.edit', $booking->id)}}">Aggiorna</a></td>
         </tr>
         @endforeach
     </tbody>
